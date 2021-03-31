@@ -2,34 +2,63 @@ from datetime import datetime
 
 from app.db.base_mysql import SQLManager
 
-def develop_add(data):
-    db = SQLManager()
-    sql1 = "insert into celebrity(website, star, as_score, celebrityname, email, youtube, youtube_star, facebook, ins) \
-            values ('%s', %d, %d, '%s', '%s', '%s', %d, '%s', '%s')" % ( \
-                data['website'], \
-                data['star'], \
-                data['as_score'], \
-                data['celebrityname'], \
-                data['email'], \
-                data['youtube'], \
-                data['youtube_star'], \
-                data['facebook'], \
-                data['ins'])
-    celebrityid = db.create(sql1)
 
+def develop_add(data_1, data_2):
+    db = SQLManager()
+    sql1 = ""
+    sql2 = ""
+    flag = False
+    table_1 = 'celebrity'
+    table_2 = 'develop'
     time = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-    sql2 = "insert into develop(c_id, d_way, d_remark, d_principal, addtime) \
-            values (%d, '%s', '%s', '%s', '%s')" % ( \
-                celebrityid, \
-                data['d_way'], \
-                data['d_remark'], \
-                data['d_principal'], \
-                str(time))
-    result = db.create(sql2)
+    data_2["addtime"] = time
+    if (data_1):
+        sql1 = db.get_insert_sql(table_1, data_1)
+        # print(sql1)
+    if (sql1):
+        result_1 = db.create(sql1)
+        if result_1 is not None:
+            data_2["c_id"] = result_1
+            flag = True
+    if (data_2):
+        sql2 = db.get_insert_sql(table_2, data_2)
+        # print(sql2)
+    if (sql2):
+        result_2 = db.create(sql2)
+        if result_2 is not None:
+            flag = True
     db.close()
-    if result is not None:
-        return True
-    return False
+    return flag
+
+# data_1 = {"celebrityname": "user13","email": "user13@me.com"}
+# data_2 = {"d_principal": "王五"}
+# develop_add(data_1, data_2)
+    # sql1 = "insert into celebrity(website, star, as_score, celebrityname, email, youtube, youtube_star, facebook, ins) \
+    #         values ('%s', %d, %d, '%s', '%s', '%s', %d, '%s', '%s')" % ( \
+    #             data['website'], \
+    #             data['star'], \
+    #             data['as_score'], \
+    #             data['celebrityname'], \
+    #             data['email'], \
+    #             data['youtube'], \
+    #             data['youtube_star'], \
+    #             data['facebook'], \
+    #             data['ins'])
+    # celebrityid = db.create(sql1)
+
+    # time = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+    # sql2 = "insert into develop(c_id, d_way, d_remark, d_principal, addtime) \
+    #         values (%d, '%s', '%s', '%s', '%s')" % ( \
+    #             celebrityid, \
+    #             data['d_way'], \
+    #             data['d_remark'], \
+    #             data['d_principal'], \
+    #             str(time))
+    # result = db.create(sql2)
+    # db.close()
+    # if result is not None:
+    #     return True
+    # return False
 
 def develop_list():
     db = SQLManager()
@@ -52,9 +81,9 @@ def develop_modify(data_1, data_2):
     sql1 = ""
     sql2 = ""
     if(data_1):
-        sql1 = db.get_update_one_sql(table_1, data_1, condition_1)
+        sql1 = db.get_update_sql(table_1, data_1, condition_1)
     if(data_2):
-        sql2 = db.get_update_one_sql(table_2, data_2, condition_2)
+        sql2 = db.get_update_sql(table_2, data_2, condition_2)
     # 这里应该有问题，如果result_1为False，result_2为True，怎么办
     if(sql1):
         result_1 = db.modify(sql1)

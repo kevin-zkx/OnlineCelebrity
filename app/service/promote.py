@@ -3,7 +3,7 @@ from app.db.base_mysql import SQLManager
 
 def promote_list():
     db = SQLManager()
-    sql = "select * from v_promote where p_display=1"
+    sql = "select * from v_promote"
     promote_list = db.get_list(sql)
     db.close()
     # for promote in promote_list:
@@ -23,9 +23,9 @@ def promote_modify(data_1, data_2):
     sql1 = ""
     sql2 = ""
     if(data_1):
-        sql1 = db.get_update_one_sql(table_1, data_1, condition_1)
+        sql1 = db.get_update_sql(table_1, data_1, condition_1)
     if(data_2):
-        sql2 = db.get_update_one_sql(table_2, data_2, condition_2)
+        sql2 = db.get_update_sql(table_2, data_2, condition_2)
     # 这里应该有问题，如果result_1为False，result_2为True，怎么办
     if(sql1):
         result_1 = db.modify(sql1)

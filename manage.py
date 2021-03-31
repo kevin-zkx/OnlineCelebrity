@@ -1,16 +1,21 @@
 from flask_restful import Api
 from flask import Flask
+from flask_cors import CORS
 
 from app.controller.cooperation import CooperationListView, Cooperation_to_Sample
 from app.controller.promote import PromoteListView
 from app.controller.sample import Sample_to_Promote, SampleListView
-from app.controller.user import UserView
+from app.controller.user import UserView, UserAuthsView
 from app.controller.develop import DevelopView, DevelopListView, Develop_to_Cooperation
 
 app = Flask(__name__)
+cors = CORS(app)
 api = Api(app)
 
 api.add_resource(UserView, '/user/login/', endpoint='user_login') #post
+api.add_resource(UserView, '/user/', endpoint='user_list') #get
+api.add_resource(UserAuthsView, '/user-auths/', endpoint='user_auths_modify') #post
+api.add_resource(UserAuthsView, '/user/', endpoint='user_del') #del
 
 api.add_resource(DevelopListView, '/develop/', endpoint='develop_add') #post
 api.add_resource(DevelopListView, '/develop/', endpoint='develop_list') #get
