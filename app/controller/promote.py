@@ -21,8 +21,8 @@ class PromoteListView(Resource):
         self.parser.add_argument('p_remark', type=str, location='form')
         self.parser.add_argument('p_principal', type=str, location='form')
         self.parser.add_argument('p_product', type=str, location='form')
-        self.parser.add_argument('product_cost', type=int, location='form')
-        self.parser.add_argument('transfer_cost', type=int, location='form')
+        self.parser.add_argument('product_cost', type=str, location='form')
+        self.parser.add_argument('transfer_cost', type=str, location='form')
         self.parser.add_argument('url', type=str, location='form')
         self.parser.add_argument('join_league', type=int, location='form')
         super(PromoteListView, self).__init__()
@@ -49,7 +49,6 @@ class PromoteListView(Resource):
         promote['transfer_cost'] = self.parser.parse_args()['transfer_cost']
         promote['url'] = self.parser.parse_args()['url']
         promote['join_league'] = self.parser.parse_args()['join_league']
-
         celebrity = clear_data(celebrity)
         promote = clear_data(promote)
         flag = promote_modify(celebrity, promote)
