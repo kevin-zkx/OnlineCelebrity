@@ -54,7 +54,6 @@ class SQLManager(object):
 
 	def count_item(self, table_name, condition):
 		sql = 'select count(*) as count from %s where %s=1' % (table_name, condition)
-		# print(sql)
 		self.cursor.execute(sql)
 		result = self.cursor.fetchone()
 		self.conn.commit()

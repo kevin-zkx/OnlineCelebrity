@@ -24,10 +24,8 @@ def cooperation_modify(data_1, data_2):
     sql2 = ""
     if(data_1):
         sql1 = db.get_update_sql(table_1, data_1, condition_1)
-        print(sql1)
     if(data_2):
         sql2 = db.get_update_sql(table_2, data_2, condition_2)
-        print(sql2)
     # 这里应该有问题，如果result_1为False，result_2为True，怎么办
     if(sql1):
         result_1 = db.modify(sql1)

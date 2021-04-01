@@ -6,9 +6,6 @@ def promote_list():
     sql = "select * from v_promote"
     promote_list = db.get_list(sql)
     db.close()
-    # for promote in promote_list:
-    #     if promote["sample_date"] is not None:
-    #         promote["sample_date"] = promote["sample_date"].strftime("%Y-%m-%d %H:%M:%S")
     return promote_list
 
 def promote_modify(data_1, data_2):
