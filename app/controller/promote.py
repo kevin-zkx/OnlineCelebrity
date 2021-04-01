@@ -41,7 +41,6 @@ class PromoteListView(Resource):
         celebrity['youtube_star'] = self.parser.parse_args()['youtube_star']
         celebrity['facebook'] = self.parser.parse_args()['facebook']
         celebrity['ins'] = self.parser.parse_args()['ins']
-        # promote['s_product'] = self.parser.parse_args()['s_product']
         promote['p_way'] = self.parser.parse_args()['p_way']
         promote['p_remark'] = self.parser.parse_args()['p_remark']
         promote['p_principal'] = self.parser.parse_args()['p_principal']

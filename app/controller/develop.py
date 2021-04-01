@@ -49,7 +49,6 @@ class DevelopListView(Resource):
 
     # 查询所有数据
     def get(self):
-        # return {"code": 200, "test": "test_list"}
         return {"code": 0, "msg": "【查询待开发信息】成功", "count": get_count("develop", "d_display"), "data": develop_list()}
 
 class DevelopView(Resource):

@@ -1,13 +1,7 @@
 import pymysql
 
-DB_CONFIG = {
-	"host": "47.100.89.9",
-	"port": 3306,
-	"user": "user_celebrity",
-	"passwd": "MEmysql0!",
-	"db": "onlinecelebrity",
-	"charset": "utf8"
-}
+from app.db import DB_CONFIG
+
 
 class SQLManager(object):
 
@@ -44,8 +38,6 @@ class SQLManager(object):
 	# 执行单条SQL语句
 	def modify(self, sql, args=None):
 		result = self.cursor.execute(sql, args)
-		# print("result:")
-		# print(result)
 		self.conn.commit()
 		return result
 
